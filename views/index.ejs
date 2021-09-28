@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fetch to google books api">
+    <title>Search popular books of your interest</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" 
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-light">
+    <div class="container">
+        <!--Start of a search box-->
+        <div class="row justify-content-center mt-4">
+            <h2 class="mb-3 text-center"><a class="text-decoration-none" href="/">Books Search</a></h3>
+            <div class="col-10 col-md-7 col-lg-6 col-xl-5">
+                <form action="/" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="title" placeholder="Enter title of the book E.g Javascript">
+                        <button class="btn btn-primary" type="submit"><span><i class="fa fa-search"></i></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ./ End of a top search box-->
+
+        <!--Results Display -->
+          <% if(results) { %>
+          <% if(Object.keys(results).length > 0){ %>
+            <div class="row g-4 mt-1">
+             <% results.forEach((result)=>{  %>
+                <div class="col-md-4 col-lg-3">
+                  <div class="card">
+                    <div class="card-header text-truncate"><%= result.title %></div>
+                    <img class="card-img-top img-fluid" src="<%= result.thumbnail %>">
+                    <div class="card-body">
+                      <p class="card-text">
+                        <% if (result.description) {%>
+                          <%= result.description.slice(0, 70).concat('...') %>
+                        <% } else{ %>
+                          <%= result.description %>
+                        <% } %>
+                      </p>
+                      <a href="<%= result.link %>" class="btn btn-sm btn-primary">Check it out</a>
+                    </div>
+                    <div class="card-footer text-truncate">*<span class="fw-bold">Author(s): </span><%= result.authors %></div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+        <% } else { %>
+          <div class="row text-center mt-3">
+            <div class="col-12 mx-auto">
+              <h5>No results to display</h5>
+            </div>
+          </div>
+        <% } %>
+
+        <!--End of Results Display -->
+        <% } else { %>
+        <div class="row text-center mt-3">
+          <div class="col-12 mx-auto">
+            <h5>Make your search now!</h5>
+          </div>
+        </div>
+        <% } %>
+
+        <!--Pagination-->
+        <% if(Object.keys(results).length > 0){ %>
+          <% var previousDisable=page <= 1 ? 'disabled' : ''%>
+          <% var nextDisable=page >= pages ? 'disabled' : ''%>
+          <ul class="pagination justify-content-center mt-4">
+              <li class="page-item <%= previousDisable %>">
+                <a href="?title=<%= search %>&page=<%= parseInt(page)-1 %>" class="page-link">Previous</a>
+              </li>
+              <li class="page-item <%= nextDisable %>">
+                <a href="?title=<%= search %>&page=<%= parseInt(page)+1 %>" class="page-link">Next</a>
+              </li>
+          </ul>
+        <% } %>
+        <!--My github link-->
+        <div class="footer col-12 text-center my-3">
+          <a class="link-primary" href="https://github.com/nodejshobby"><span><i class="fab fa-github" aria-hidden="true"></i></span> Star me on github</a>
+        </div>
+
+        <% if(message){ %>
+          <div class="row text-center mt-3">
+            <div class="col-12 mx-auto">
+              <h5>Error: <%= message %></h5>
+            </div>
+          </div>
+        <% } %>
+    </div>
+</body>
+</html>

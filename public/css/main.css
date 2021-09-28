@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    text-rendering: optimizeLegibility;
+}
+.form-control,.form-control:focus,button:focus{
+    box-shadow: none !important;
+    outline: none !important;
+}
+.btn:active,.btn:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+.card > img{
+    height: 9rem;
+}
+.card-body{
+    padding: .2rem;
+}
+.card-text {
+    margin: .5rem;
+    margin-bottom: .2rem;
+}
+.card-header {
+    font-size: 17px;
+}
+
+.card-body > a{
+    margin: .3rem;
+    margin-bottom: .4rem;
+}
+.footer a{
+    text-decoration: none;
+    font-size: 18px;
+}
+.pagination .page-link,.page-link:active{
+    box-shadow: none !important;
+    outline: none !important;
+}
