@@ -11,7 +11,7 @@ The .env file should be filled with a ***PORT NUMBER*** like 3000 or you live it
 ```
 npm install
 ```
-## Make your server running now!
+## Start your server now!
 ```
 npm start
 ```
